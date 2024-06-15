@@ -1,0 +1,29 @@
+[user]
+  name = Jon Mooring
+	email = jonmooring@gmail.com
+	signingkey = 5659FA7307C70BBD
+[core]
+  excludesfile = ~/.gitignore_global
+  quotepath = false
+[init]
+  defaultBranch = main
+[commit]
+  gpgsign = true
+[alias]
+  amend = commit --amend
+  br = branch
+  ci = commit
+  ciane = commit --amend --no-edit
+  co = checkout
+  cp = cherry-pick
+  cpa = cherry-pick --abort
+  cpc = cherry-pick --continue
+  dc = diff --cached
+  df = diff
+  re = rebase
+  rea = rebase --abort
+  rec = rebase --continue
+  rei = rebase --interactive
+  reom = rebase origin/main
+  st = status
+  undo = reset --soft HEAD^

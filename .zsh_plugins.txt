@@ -1,0 +1,11 @@
+# Theme
+romkatv/powerlevel10k
+
+# Completions
+zsh-users/zsh-completions
+belak/zsh-utils path:completion
+
+belak/zsh-utils path:editor
+belak/zsh-utils path:history
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting
