@@ -6,6 +6,12 @@ vim.g.maplocalleader = '\\'
 vim.keymap.set('n', '<leader>|', ':vsplit<cr>')
 vim.keymap.set('n', '<leader>-', ':split<cr>')
 
+-- Resizing panes
+vim.keymap.set('n', '<M-Up>', '<C-w>+')
+vim.keymap.set('n', '<M-Down>', '<C-w>-')
+vim.keymap.set('n', '<M-Left>', '<C-w><')
+vim.keymap.set('n', '<M-Right>', '<C-w>>')
+
 -- Move lines up and down
 vim.keymap.set('n', '<M-j>', ':m .+1<cr>==')
 vim.keymap.set('n', '<M-k>', ':m .-2<cr>==')
