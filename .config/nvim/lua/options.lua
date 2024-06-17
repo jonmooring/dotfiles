@@ -30,6 +30,8 @@ vim.opt.hidden      = true
 vim.opt.showmode    = false
 -- Ensure we have a buffer of 5 lines at the top and bottom
 vim.opt.scrolloff   = 5
+-- Enable mouse support
+vim.opt.mouse = 'a'
 
 -- Line numbers
 vim.opt.number = true
