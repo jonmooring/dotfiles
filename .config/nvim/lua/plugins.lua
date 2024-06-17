@@ -26,6 +26,12 @@ require('lazy').setup({
     config = true
   },
   {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = true
+  },
+  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate'
   },
