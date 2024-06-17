@@ -6,6 +6,11 @@ vim.g.maplocalleader = '\\'
 vim.keymap.set('n', '<leader>|', ':vsplit<cr>')
 vim.keymap.set('n', '<leader>-', ':split<cr>')
 
+-- Buffer control
+vim.keymap.set('n', '<leader>l', ':bnext<cr>')
+vim.keymap.set('n', '<leader>h', ':bprev<cr>')
+vim.keymap.set('n', '<leader>q', ':bd<cr>')
+
 -- Resizing panes
 vim.keymap.set('n', '<M-Up>', '<C-w>+')
 vim.keymap.set('n', '<M-Down>', '<C-w>-')
