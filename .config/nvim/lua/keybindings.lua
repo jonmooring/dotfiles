@@ -30,3 +30,10 @@ local telescope = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>', telescope.git_files)
 vim.keymap.set('n', '<leader>pf', telescope.find_files)
 vim.keymap.set('n', '<leader>pg', telescope.live_grep)
+vim.keymap.set('n', '<leader>pb', telescope.buffers)
+vim.keymap.set('n', '<leader>pt', function()
+  require('telescope').extensions.file_browser.file_browser({
+    path = '%:p:h',
+    select_buffer = true
+  })
+end)

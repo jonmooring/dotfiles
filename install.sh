@@ -38,6 +38,7 @@ homebrew_packages=(
   antidote
   bash
   dockutil
+  fd
   fzf
   git
   gnupg

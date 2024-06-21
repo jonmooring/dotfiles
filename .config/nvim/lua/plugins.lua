@@ -51,8 +51,20 @@ require('lazy').setup({
         live_grep = {
           additional_args = {'--hidden'}
         }
+      },
+      extensions = {
+        file_browser = {
+          follow_symlinks = true
+        }
       }
     }
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    config = function()
+      require('telescope').load_extension('file_browser')
+    end
   },
   {
     'christoomey/vim-tmux-navigator',
