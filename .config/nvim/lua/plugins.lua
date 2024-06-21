@@ -22,6 +22,36 @@ require('lazy').setup({
     end
   },
   {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup({
+        ensure_installed = {
+          "bash",
+          "css",
+          "dockerfile",
+          "graphql",
+          "html",
+          "javascript",
+          "json",
+          "lua",
+          "markdown",
+          "markdown_inline",
+          "prisma",
+          "sql",
+          "terraform",
+          "tmux",
+          "toml",
+          "typescript",
+          "vim",
+          "yaml"
+        },
+        auto_install = true,
+        highlight = { enable = true }
+      })
+    end
+  },
+  {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = true
