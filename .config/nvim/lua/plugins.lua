@@ -63,8 +63,9 @@ require('lazy').setup({
     config = true
   },
   {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate'
+    'nvim-tree/nvim-tree.lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = true
   },
   {
     'nvim-telescope/telescope.nvim',
