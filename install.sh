@@ -142,16 +142,6 @@ if [[ ! -d "$HOME/.nvm" ]]; then
   nvm install stable
 fi
 
-if [[ ! $(npm ls -g | grep typescript-language-server) ]]; then
-  echo "Installing typescript-language-server..."
-  npm install -g typescript typescript-language-server
-fi
-
-if [[ ! $(npm ls -g | grep @fsouza/prettierd) ]]; then
-  echo "Installing @fsouza/prettierd..."
-  npm install -g @fsouza/prettierd
-fi
-
 dotfiles_directory="$HOME/.dotfiles"
 
 if [[ ! -d "$dotfiles_directory" ]]; then
