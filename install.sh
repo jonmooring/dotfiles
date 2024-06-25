@@ -67,6 +67,7 @@ homebrew_cask_packages=(
   discord
   dropbox
   fantastical
+  figma
   font-sauce-code-pro-nerd-font
   middle
   mosaic
