@@ -120,4 +120,54 @@ require('lazy').setup({
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
     config = true
   },
+  {
+    'williamboman/mason.nvim',
+    config = true
+  },
+  {
+    'williamboman/mason-lspconfig.nvim',
+    dependencies = { "VonHeikemen/lsp-zero.nvim" },
+    opts = {
+      ensure_installed = {
+        'bashls',
+        'cssls',
+        'dockerls',
+        'docker_compose_language_service',
+        'eslint',
+        'graphql',
+        'html',
+        'jsonls',
+        'lua_ls',
+        'prismals',
+        'remark_ls',
+        'taplo',
+        'terraformls',
+        'tflint',
+        'tsserver',
+        'vimls',
+        'yamlls'
+      },
+      handlers = {
+        function(server_name)
+          require('lspconfig')[server_name].setup({})
+        end,
+      },
+    }
+  },
+  {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v3.x',
+    config = function()
+      local lsp_zero = require('lsp-zero')
+      lsp_zero.extend_lspconfig()
+
+      lsp_zero.on_attach(function(client, bufnr)
+        lsp_zero.default_keymaps({buffer = bufnr})
+      end)
+    end
+  },
+  {'neovim/nvim-lspconfig'},
+  {'hrsh7th/cmp-nvim-lsp'},
+  {'hrsh7th/nvim-cmp'},
+  {'L3MON4D3/LuaSnip'},
 })
