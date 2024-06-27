@@ -173,25 +173,32 @@ fi
 echo "Linking dotfiles repository to home directory..."
 pushd $dotfiles_directory > /dev/null && stow --no-folding . && popd > /dev/null
 
-echo "Setting Finder to show all filename extensions by default... "
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+macos_defaults=(
+  NSGlobalDomain,AppleShowAllExtensions,bool,true
+  NSGlobalDomain,NSNavPanelExpandedStateForSaveMode,bool,true
+  NSGlobalDomain,NSAutomaticQuoteSubstitutionEnabled,bool,false
+  NSGlobalDomain,NSAutomaticDashSubstitutionEnabled,bool,false
+  com.apple.finder,FXPreferredViewStyle,string,Clmv
+  com.apple.finder,FXEnableExtensionChangeWarning,bool,false
+  com.apple.dock,show-recents,bool,false
+  com.apple.dock,recent-apps,array,
+)
 
-echo "Enabling expanding the save panel by default..."
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+for default in $macos_defaults; do
+  parts=(${(@s:,:)default})
+  domain=$parts[1]
+  key=$parts[2]
+  value_type=$parts[3]
+  value=$parts[4]
+  current_value=$(defaults read $domain $key)
 
-echo "Disabling smart quotes and smart dashes..."
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+  [[ "$value_type" == "bool" && "$current_value" == "0" && $value == "false" ]] && continue
+  [[ "$value_type" == "bool" && "$current_value" == "1" && $value == "true" ]] && continue
+  [[ "$value_type" == "string" && "$current_value" == "$value" ]] && continue
 
-echo "Setting default Finder view to columns..."
-defaults write com.apple.Finder FXPreferredViewStyle Clmv
-
-echo "Disabling the warning when changing a file extension..."
-defaults write com.apple.Finder FXEnableExtensionChangeWarning -bool false
-
-echo "Hiding recent apps from the dock..."
-defaults write com.apple.dock show-recents -bool no
-defaults write com.apple.dock recent-apps -array
+  echo "Setting $domain.$key to $value..."
+  defaults write $domain $key -$value_type $value
+done
 
 dock_apps=(
   /Applications/Arc.app
