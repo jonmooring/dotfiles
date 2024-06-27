@@ -40,15 +40,18 @@ homebrew_packages=(
   dockutil
   fd
   fzf
+  gh
   git
   gnupg
   jq
+  luarocks
   mas
   neovim
   pinentry-mac
   ripgrep
   stow
   tmux
+  tmuxinator
   tree
   zsh
 )
