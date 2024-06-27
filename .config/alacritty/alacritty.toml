@@ -12,11 +12,11 @@ opacity = 0.9
 option_as_alt = "Both"
 
 [window.padding]
-x = 25
-y = 20
+x = 16
+y = 16
 
 [font]
-size = 16
+size = 18
 
 [font.bold]
 family = "SauceCodePro Nerd Font"
