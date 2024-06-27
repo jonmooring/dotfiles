@@ -73,6 +73,7 @@ homebrew_cask_packages=(
   mosaic
   slack
   spotify
+  visual-studio-code
   zoom
 )
 
@@ -193,6 +194,7 @@ dock_apps=(
   /Applications/Arc.app
   /Applications/1Password.app
   /Applications/Alacritty.app
+  /Applications/Visual\ Studio\ Code.app
   /Applications/zoom.us.app
   /System/Applications/Messages.app
   /Applications/Discord.app
@@ -261,6 +263,7 @@ echo "- Open Spotify, log in, and disable open at login"
 echo "- Open Messages, log in, and enable Messages in iCloud"
 echo "- Open Discord and log in"
 echo "- Open Slack and log in to Atlassian Alumni and Browser Wranglers workspaces"
+echo "- Open Visual Studio Code and log in to GitHub"
 echo "- Download and install Elgato Control Center"
 echo "  https://www.elgato.com/en/downloads"
 echo "- Download and install Fujifilm X Webcam 2"
