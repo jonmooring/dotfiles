@@ -120,9 +120,10 @@ if [[ "$SHELL" != "$homebrew_zsh" ]]; then
   chsh -s $homebrew_zsh
 fi
 
-if [[ ! -d "$HOME/.config/alacritty/themes" ]]; then
-  echo "Cloning Alacritty themes repository..."
-  git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+if [[ ! -f "$HOME/.config/alacritty/catppuccin-mocha.toml" ]]; then
+  echo "Downloading Catppuccin theme for Alacritty..."
+  mkdir -p $HOME/.config/alacritty
+  curl -LO --output-dir $HOME/.config/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml
 fi
 
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
