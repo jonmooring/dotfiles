@@ -44,6 +44,7 @@ homebrew_packages=(
   git
   gnupg
   jq
+  lazygit
   luarocks
   mas
   neovim
