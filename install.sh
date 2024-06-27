@@ -228,8 +228,12 @@ for app in $dock_apps[@]; do
   fi
 done
 
-echo "Restarting dock process..."
-killall Dock
+read -q "should_restart_dock?Restart dock process? [yN] "
+
+if [[ "$should_restart_dock" == "y" ]]; then
+  echo "Restarting dock process..."
+  killall Dock
+fi
 
 git_email=$(git config --global --get user.email)
 
