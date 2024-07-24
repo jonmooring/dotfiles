@@ -41,5 +41,20 @@ alias g="git"
 alias v="vim"
 alias dot="pushd $HOME/.dotfiles > /dev/null && stow --no-folding . && popd > /dev/null && source $HOME/.zshrc"
 
+# Which processes are listening on TCP ports?
+listening() {
+    if [ $# -eq 0 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P
+    elif [ $# -eq 1 ]; then
+      processes=$(sudo lsof -iTCP -sTCP:LISTEN -n -P)
+      header=$(echo $processes | head -n 1)
+
+      echo $header
+      echo $processes | grep -i --color $1
+    else
+        echo "Usage: listening [pattern]"
+    fi
+}
+
 # Allow for custom local config
 if [[ -f "$HOME/.zshrc.local" ]] source $HOME/.zshrc.local
