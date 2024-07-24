@@ -20,6 +20,8 @@
   cpc = cherry-pick --continue
   dc = diff --cached
   df = diff
+  ph = push
+  pl = pull
   re = rebase
   rea = rebase --abort
   rec = rebase --continue
