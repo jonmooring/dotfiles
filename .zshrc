@@ -40,8 +40,9 @@ listening() {
     if [ $# -eq 0 ]; then
         sudo lsof -iTCP -sTCP:LISTEN -n -P
     elif [ $# -eq 1 ]; then
-      processes=$(sudo lsof -iTCP -sTCP:LISTEN -n -P)
-      header=$(echo $processes | head -n 1)
+      output=$(sudo lsof -iTCP -sTCP:LISTEN -n -P)
+      header=$(echo $output | sed 1q)
+      processes=$(echo $output | sed 1d)
 
       echo $header
       echo $processes | grep -i --color $1
