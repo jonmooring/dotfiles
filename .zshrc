@@ -1,9 +1,3 @@
-# Set default editor to neovim
-export EDITOR='nvim'
-
-# Make sure right prompt sits flush
-export ZLE_RPROMPT_INDENT=0
-
 # powerlevel10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -55,6 +49,15 @@ listening() {
         echo "Usage: listening [pattern]"
     fi
 }
+
+# Fixes file descriptor error when running `git status`
+unset ZSH_AUTOSUGGEST_USE_ASYNC
+
+# Set default editor to neovim
+export EDITOR='nvim'
+
+# Don't use vim bindings for zsh
+bindkey -e
 
 # Allow for custom local config
 if [[ -f "$HOME/.zshrc.local" ]] source $HOME/.zshrc.local
