@@ -29,3 +29,5 @@
   reom = rebase origin/main
   st = status
   undo = reset --soft HEAD^
+[pull]
+  rebase = true
