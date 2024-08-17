@@ -1,7 +1,5 @@
-[user]
-  name = Jon Mooring
-	email = jonmooring@gmail.com
-	signingkey = 5659FA7307C70BBD
+[include]
+  path = ~/.gitconfig.local
 [core]
   excludesfile = ~/.gitignore_global
   quotepath = false
