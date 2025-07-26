@@ -161,13 +161,16 @@ if [[ ! -f "$HOME/.gnupg/gpg-agent.conf" ]]; then
   echo "pinentry-program $(which pinentry-mac)" > $HOME/.gnupg/gpg-agent.conf
   chmod 600 ~/.gnupg/gpg-agent.conf
 
-  op_item_name=$(op item list --tags gpg --format json | jq '.[0].title' -r)
+  gpg_key_tag="personal"
+  read "gpg_key_tag?GPG key tag ($gpg_key_tag): "
+
+  op_item_name=$(op item list --tags gpg,$gpg_key_tag --format json | jq '.[0].title' -r)
   gpg_key=$(op item get $op_item_name --fields notesPlain --format json | jq '.value' -r)
 
   echo "Importing GPG key..."
   echo $gpg_key | gpg --import
   signing_key=$(gpg --list-secret-keys --keyid-format=long | grep -E 'sec\s*ed25519/(\w+)' -o | sed 's/^sec[[:space:]]*ed25519\///')
-  git config --global user.signingkey $signing_key
+  git config --file ~/.local.gitconfig user.signingkey $signing_key
 fi
 
 echo "Linking dotfiles repository to home directory..."
