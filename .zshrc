@@ -60,5 +60,9 @@ export EDITOR='nvim'
 # Don't use vim bindings for zsh
 bindkey -e
 
+# Cmd+Left/Right to move to start or end of line
+bindkey "^[[1;9D" vi-beginning-of-line
+bindkey "^[[1;9C" vi-end-of-line
+
 # Allow for custom local config
 if [[ -f "$HOME/.local.zshrc" ]] source $HOME/.local.zshrc
