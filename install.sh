@@ -198,6 +198,7 @@ for default in $macos_defaults; do
   [[ "$value_type" == "bool" && "$current_value" == "0" && $value == "false" ]] && continue
   [[ "$value_type" == "bool" && "$current_value" == "1" && $value == "true" ]] && continue
   [[ "$value_type" == "string" && "$current_value" == "$value" ]] && continue
+  [[ "$value_type" == "array" && "$value" == "" && "$current_value" == $'(\n)' ]] && continue
 
   echo "Setting $domain.$key to $value..."
   defaults write $domain $key -$value_type $value
