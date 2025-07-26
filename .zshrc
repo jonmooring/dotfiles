@@ -61,4 +61,4 @@ export EDITOR='nvim'
 bindkey -e
 
 # Allow for custom local config
-if [[ -f "$HOME/.zshrc.local" ]] source $HOME/.zshrc.local
+if [[ -f "$HOME/.local.zshrc" ]] source $HOME/.local.zshrc
