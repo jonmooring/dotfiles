@@ -64,5 +64,12 @@ bindkey -e
 bindkey "^[[1;9D" vi-beginning-of-line
 bindkey "^[[1;9C" vi-end-of-line
 
+# Initialize command autocompletion
+autoload -Uz compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
+
+# Case-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
 # Allow for custom local config
 if [[ -f "$HOME/.local.zshrc" ]] source $HOME/.local.zshrc
