@@ -68,6 +68,7 @@ homebrew_cask_packages=(
   1password
   alacritty
   arc
+  cursor
   discord
   dropbox
   fantastical
@@ -77,7 +78,6 @@ homebrew_cask_packages=(
   mosaic
   slack
   spotify
-  visual-studio-code
   zoom
 )
 
