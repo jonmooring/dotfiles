@@ -104,7 +104,6 @@ installed_mac_app_store_apps=$(mas list)
 declare -A mac_app_store_apps
 mac_app_store_apps[amphetamine]="937984704"
 mac_app_store_apps[xcode]="497799835"
-mac_app_store_apps[onetask]="6465745322"
 
 for name id in ${(kv)mac_app_store_apps}; do
   if [[ ! $(echo $installed_mac_app_store_apps | grep $id) ]]; then
