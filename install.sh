@@ -208,7 +208,7 @@ dock_apps=(
   /Applications/Arc.app
   /Applications/1Password.app
   /Applications/Alacritty.app
-  /Applications/Visual\ Studio\ Code.app
+  /Applications/Cursor.app
   /Applications/zoom.us.app
   /System/Applications/Messages.app
   /Applications/Discord.app
@@ -216,14 +216,14 @@ dock_apps=(
   /Applications/Spotify.app
 )
 
-installed_dock_apps=$(dockutil -L)
-
 read -q "should_clear_dock?Remove all existing apps from dock? [yN] "
 
 if [[ "$should_clear_dock" == "y" ]]; then
-  echo "Removing all existing apps from the dock..."
+  echo "\nRemoving all existing apps from the dock..."
   dockutil --remove all --no-restart
 fi
+
+installed_dock_apps=$(dockutil -L)
 
 for app in $dock_apps[@]; do
   if [[ ! $(echo $installed_dock_apps | grep $app) ]]; then
@@ -235,7 +235,7 @@ done
 read -q "should_restart_dock?Restart dock process? [yN] "
 
 if [[ "$should_restart_dock" == "y" ]]; then
-  echo "Restarting dock process..."
+  echo "\nRestarting dock process..."
   killall Dock
 fi
 
