@@ -6,10 +6,10 @@ if [[ -z $(xcode-select -p) ]]; then
   read "Press [Enter] key when install is complete."
 fi
 
-xcode_version=$(xcodebuild -version | grep '^Xcode\s' | sed -E 's/^Xcode[[:space:]]+([0-9\.]+)/\1/')
-accepted_xcode_license_version=$(defaults read /Library/Preferences/com.apple.dt.Xcode 2> /dev/null | grep IDEXcodeVersionForAgreedToGMLicense | cut -d '"' -f 2)
+xcode_major_version=$(xcodebuild -version | grep '^Xcode\s' | sed -E 's/^Xcode[[:space:]]+([0-9\.]+)/\1/' | cut -d. -f1)
+accepted_xcode_major_version=$(defaults read /Library/Preferences/com.apple.dt.Xcode 2> /dev/null | grep IDEXcodeVersionForAgreedToGMLicense | cut -d '"' -f 2 | cut -d. -f1)
 
-if [[ "$xcode_version" != "$accepted_xcode_license_version" ]]; then
+if [[ "$xcode_major_version" != "$accepted_xcode_major_version" ]]; then
   echo "Accepting Xcode license..."
   sudo xcodebuild -license accept
 fi
