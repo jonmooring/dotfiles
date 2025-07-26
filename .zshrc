@@ -30,7 +30,7 @@ alias vim="nvim"
 alias ls="ls -G"
 
 # Shortcuts for common commands
-alias c="code"
+alias c="cursor"
 alias g="git"
 alias v="vim"
 alias dot="pushd $HOME/.dotfiles > /dev/null && stow --no-folding . && popd > /dev/null && source $HOME/.zshrc"
