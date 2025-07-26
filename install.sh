@@ -238,13 +238,13 @@ if [[ "$should_restart_dock" == "y" ]]; then
   killall Dock
 fi
 
-git_email=$(git config --global --get user.email)
+git_email=$(git config --global --includes --get user.email)
 
 read "new_git_email?Git email ($git_email): "
 
 if [[ ! -z "$new_git_email" ]]; then
   echo "Setting new Git email..."
-  git config --global user.email $new_git_email
+  git config set --file ~/.local.gitconfig user.email $new_git_email
 fi
 
 host_name=$(scutil --get HostName)
