@@ -66,7 +66,6 @@ done
 
 homebrew_cask_packages=(
   1password
-  alacritty
   arc
   cursor
   discord
@@ -74,6 +73,7 @@ homebrew_cask_packages=(
   fantastical
   figma
   font-sauce-code-pro-nerd-font
+  ghostty
   middle
   mosaic
   slack
@@ -85,11 +85,7 @@ for package in ${homebrew_cask_packages[@]}; do
   if [[ ! $(echo $installed_homebrew_packages | grep -E ^$package\$) ]]; then
     echo "Installing $package cask via Homebrew..."
 
-    if [[ $package == "alacritty" ]]; then
-      brew install --cask $package --no-quarantine
-    else
-      brew install --cask $package
-    fi
+    brew install --cask $package
   fi
 done
 
@@ -122,12 +118,6 @@ fi
 if [[ "$SHELL" != "$homebrew_zsh" ]]; then
   echo "Setting default shell to $homebrew_zsh..."
   chsh -s $homebrew_zsh
-fi
-
-if [[ ! -f "$HOME/.config/alacritty/catppuccin-mocha.toml" ]]; then
-  echo "Downloading Catppuccin theme for Alacritty..."
-  mkdir -p $HOME/.config/alacritty
-  curl -LO --output-dir $HOME/.config/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml
 fi
 
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
@@ -207,7 +197,7 @@ done
 dock_apps=(
   /Applications/Arc.app
   /Applications/1Password.app
-  /Applications/Alacritty.app
+  /Applications/Ghostty.app
   /Applications/Cursor.app
   /Applications/zoom.us.app
   /System/Applications/Messages.app
