@@ -40,7 +40,6 @@ homebrew_packages=(
   dockutil
   fd
   fzf
-  gh
   git
   gnupg
   jq
