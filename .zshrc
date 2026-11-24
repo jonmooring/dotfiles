@@ -5,7 +5,11 @@ fi
 
 # Initialize Homebrew
 homebrew_path="/opt/homebrew"
-if [[ `uname -m` == "x86_64" ]] homebrew_path="/usr/local"
+if [[ "$OSTYPE" == linux* ]]; then
+  homebrew_path="/home/linuxbrew/.linuxbrew"
+elif [[ $(uname -m) == "x86_64" ]]; then
+  homebrew_path="/usr/local"
+fi
 eval "$($homebrew_path/bin/brew shellenv)"
 
 # Initialize Antidote
@@ -21,16 +25,24 @@ export NVM_DIR="$HOME/.nvm"
 [[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
 
 # Initialize fzf
-[[ -f "$HOME/.fzf.zsh" ]] && source $HOME/.fzf.zsh
+if [[ -f "$HOME/.fzf.zsh" ]]; then
+  source "$HOME/.fzf.zsh"
+else
+  source <(fzf --zsh)
+fi
 
 # Always use neovim instead of vim
 alias vim="nvim"
 
 # ls colors
-alias ls="ls -G"
+if [[ "$OSTYPE" == linux* ]]; then
+  alias ls="ls --color=auto"
+else
+  alias ls="ls -G"
+fi
 
 # Shortcuts for common commands
-alias c="cursor"
+alias c="cursor --classic"
 alias g="git"
 alias v="vim"
 alias dot="pushd $HOME/.dotfiles > /dev/null && stow --no-folding . && popd > /dev/null && source $HOME/.zshrc"
@@ -72,4 +84,8 @@ autoload -Uz bashcompinit && bashcompinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Allow for custom local config
+for config_file in "$HOME"/.config/zsh/conf.d/*.zsh(N); do
+  source "$config_file"
+done
+unset config_file
 if [[ -f "$HOME/.local.zshrc" ]] source $HOME/.local.zshrc
