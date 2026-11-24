@@ -4,13 +4,23 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Initialize Homebrew
-homebrew_path="/opt/homebrew"
-if [[ `uname -m` == "x86_64" ]] homebrew_path="/usr/local"
-eval "$($homebrew_path/bin/brew shellenv)"
+for homebrew_path in /home/linuxbrew/.linuxbrew /opt/homebrew /usr/local; do
+  if [[ -x "$homebrew_path/bin/brew" ]]; then
+    eval "$("$homebrew_path/bin/brew" shellenv)"
+    break
+  fi
+done
+unset homebrew_path
+typeset -U path
+path=("$HOME/.local/bin" $path)
 
 # Initialize Antidote
-source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
-antidote load
+if [[ -r "$HOME/.antidote/antidote.zsh" ]]; then
+  source "$HOME/.antidote/antidote.zsh"
+elif (( $+commands[brew] )); then
+  [[ ! -r "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh" ]] || source "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh"
+fi
+(( ! $+functions[antidote] )) || antidote load
 
 # Initialize powerlevel10k
 [[ ! -f "$HOME/.p10k.zsh" ]] || source $HOME/.p10k.zsh
@@ -22,18 +32,29 @@ export NVM_DIR="$HOME/.nvm"
 
 # Initialize fzf
 [[ -f "$HOME/.fzf.zsh" ]] && source $HOME/.fzf.zsh
+if [[ ! -f "$HOME/.fzf.zsh" ]] && (( $+commands[fzf] )); then
+  source <(fzf --zsh)
+fi
 
 # Always use neovim instead of vim
 alias vim="nvim"
 
 # ls colors
-alias ls="ls -G"
+if [[ "$OSTYPE" == darwin* ]]; then
+  alias ls='ls -G'
+else
+  alias ls='ls --color=auto'
+fi
 
 # Shortcuts for common commands
-alias c="cursor"
+alias c="cursor --classic"
 alias g="git"
 alias v="vim"
-alias dot="pushd $HOME/.dotfiles > /dev/null && stow --no-folding . && popd > /dev/null && source $HOME/.zshrc"
+unalias dot 2>/dev/null
+function dot {
+  local repo="${${(%):-%x}:A:h}"
+  bash "$repo/scripts/link.sh" && source "$HOME/.zshrc"
+}
 
 # Which processes are listening on TCP ports?
 listening() {
@@ -72,4 +93,8 @@ autoload -Uz bashcompinit && bashcompinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Allow for custom local config
+for config_file in "$HOME"/.config/zsh/conf.d/*.zsh(N); do
+  source "$config_file"
+done
+unset config_file
 if [[ -f "$HOME/.local.zshrc" ]] source $HOME/.local.zshrc

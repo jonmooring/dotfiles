@@ -1,3 +1,8 @@
 .git
 install.sh
 README.md
+^/scripts
+^/installers
+^/packages
+^/inventory
+^/\.gitignore$
