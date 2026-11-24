@@ -4,23 +4,17 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Initialize Homebrew
-for homebrew_path in /home/linuxbrew/.linuxbrew /opt/homebrew /usr/local; do
-  if [[ -x "$homebrew_path/bin/brew" ]]; then
-    eval "$("$homebrew_path/bin/brew" shellenv)"
-    break
-  fi
-done
-unset homebrew_path
-typeset -U path
-path=("$HOME/.local/bin" $path)
+homebrew_path="/opt/homebrew"
+if [[ "$OSTYPE" == linux* ]]; then
+  homebrew_path="/home/linuxbrew/.linuxbrew"
+elif [[ $(uname -m) == "x86_64" ]]; then
+  homebrew_path="/usr/local"
+fi
+eval "$($homebrew_path/bin/brew shellenv)"
 
 # Initialize Antidote
-if [[ -r "$HOME/.antidote/antidote.zsh" ]]; then
-  source "$HOME/.antidote/antidote.zsh"
-elif (( $+commands[brew] )); then
-  [[ ! -r "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh" ]] || source "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh"
-fi
-(( ! $+functions[antidote] )) || antidote load
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+antidote load
 
 # Initialize powerlevel10k
 [[ ! -f "$HOME/.p10k.zsh" ]] || source $HOME/.p10k.zsh
@@ -31,8 +25,9 @@ export NVM_DIR="$HOME/.nvm"
 [[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
 
 # Initialize fzf
-[[ -f "$HOME/.fzf.zsh" ]] && source $HOME/.fzf.zsh
-if [[ ! -f "$HOME/.fzf.zsh" ]] && (( $+commands[fzf] )); then
+if [[ -f "$HOME/.fzf.zsh" ]]; then
+  source "$HOME/.fzf.zsh"
+else
   source <(fzf --zsh)
 fi
 
@@ -40,21 +35,17 @@ fi
 alias vim="nvim"
 
 # ls colors
-if [[ "$OSTYPE" == darwin* ]]; then
-  alias ls='ls -G'
+if [[ "$OSTYPE" == linux* ]]; then
+  alias ls="ls --color=auto"
 else
-  alias ls='ls --color=auto'
+  alias ls="ls -G"
 fi
 
 # Shortcuts for common commands
 alias c="cursor --classic"
 alias g="git"
 alias v="vim"
-unalias dot 2>/dev/null
-function dot {
-  local repo="${${(%):-%x}:A:h}"
-  bash "$repo/scripts/link.sh" && source "$HOME/.zshrc"
-}
+alias dot="pushd $HOME/.dotfiles > /dev/null && stow --no-folding . && popd > /dev/null && source $HOME/.zshrc"
 
 # Which processes are listening on TCP ports?
 listening() {
